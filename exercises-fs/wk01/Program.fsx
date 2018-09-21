@@ -63,16 +63,10 @@ addE([1;2;3], [4;5;6]) // Expected [5; 7; 9]
 addE([1;2], [3;4;5;6]) // Expected [4; 6; 5; 6]
 addE([1;2;3;4], [5;6]) // Expected [6; 8; 3; 4]
 
-let rec moveN(n, xs) = 
-    match n with
-    | 0 -> xs
-    | n -> 0 :: moveN(n - 1, xs)
-
 let rec mul(xs, ys) =
     match xs, ys with
     | [], _ -> []
     | x::tail, _ -> addE(mulC(x, ys), mul(tail, 0::ys))
-    // | x1::x2::tail, _ -> mulX(addE(mulC(x1, ys), 0::mulC(x2, ys)), tail)
  
 mul([ 2; 3; 0; 1 ], [ 1; 2; 3 ]) // Expected [2, 7, 12, 10, 2, 3]
 mul([1; 2; 3],[3; 2; 1]) // Expected [3, 8, 14, 8, 3]
