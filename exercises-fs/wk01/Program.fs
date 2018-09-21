@@ -68,11 +68,11 @@ let rec moveN(n, xs) =
     | 0 -> xs
     | n -> 0 :: moveN(n - 1, xs)
 
-let rec mulX(xs, ys) =
+let rec mul(xs, ys) =
     match xs, ys with
     | [], _ -> []
-    | x::tail, _ -> addE(mulC(x, ys), mulX(tail, 0::ys))
+    | x::tail, _ -> addE(mulC(x, ys), mul(tail, 0::ys))
     // | x1::x2::tail, _ -> mulX(addE(mulC(x1, ys), 0::mulC(x2, ys)), tail)
  
-mulX([ 2; 3; 0; 1 ], [ 1; 2; 3 ]) // Expected [2, 7, 12, 10, 2, 3]
-mulX([1; 2; 3],[3; 2; 1]) // Expected [3, 8, 14, 8, 3]
+mul([ 2; 3; 0; 1 ], [ 1; 2; 3 ]) // Expected [2, 7, 12, 10, 2, 3]
+mul([1; 2; 3],[3; 2; 1]) // Expected [3, 8, 14, 8, 3]
