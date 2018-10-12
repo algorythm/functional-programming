@@ -11,8 +11,7 @@ let rec namesFileSys = function
     | [] -> []
     | elm::tail -> namesElement elm @ namesFileSys tail
     and namesElement = function
-    | File(name, ext) as file -> [(name + "." + ext)]
-    | Dir(_, []) -> []
+    | File(name, ext) -> [(name + "." + ext)]
     | Dir(name, files) -> name::namesFileSys files
 
 namesElement d1
