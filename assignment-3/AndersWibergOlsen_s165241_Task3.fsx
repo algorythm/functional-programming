@@ -1,4 +1,3 @@
-open System.Xml
 type Title    = string;;
 type Document = Title * Element list
 and Element   = Par of string | Sec of Document;;
