@@ -20,13 +20,10 @@ let doc  = ("Compiler project", [Par "Bla"; Sec s1; Sec s2; Sec s3]);;
 
 let rec noOfSecs = function
     | _, [] -> 0
-    | _, secList -> noOfSecsList secList
-and noOfSecsList = function
-    | [] -> 0
-    | [Sec _] -> 1
-    | Sec(_, secList) :: secRest -> noOfSecsList secList + noOfSecsList secRest + 1
-    // | Sec(_, secList) :: secRest -> noOfSecsList secRest + noOfSecsList secList + 1
-    | _ :: rest -> noOfSecsList rest
+    | title, head :: tail -> determineElement head + noOfSecs(title, tail)
+and determineElement = function
+    | Par _ -> 0
+    | Sec(title, tail) -> noOfSecs(title, tail) + 1
 
 let testElement1 = ("Test", [ Sec("Test Section", [Par "This is a part"]) ])
 let testElement2 = ("2 Sections", [ Sec("Section 1", []); Sec("Section 2", []) ])
@@ -34,17 +31,10 @@ let testElement3 = ("3 Sections (2 sec, 1 sub)", [ Sec("Section 1", []); Sec("Se
 let testElement4 = ("1 Section, not first", [Par "Bla"; Sec("Section", [])])
 let testElement5 = ("2 Sectinos (1 sec, 1 sub)", [Sec("Section", [Sec("Subsection", [])])])
 
-
-noOfSecs testElement1 // 1 -- tests 1 section
-noOfSecs testElement2 // 2 -- tests 2 sections
-noOfSecs testElement3 // 3 -- tests 2 sections, 1 subsection
-noOfSecs testElement4 // 1 -- tests 1 section, but not as the first
-noOfSecs testElement5 // 2 -- tests 1 section, 1 subsection
-noOfSecs doc // 13
-
 let test1 = noOfSecs testElement1 = 1
 let test2 = noOfSecs testElement2 = 2
 let test3 = noOfSecs testElement3 = 3
 let test4 = noOfSecs testElement4 = 1
 let test5 = noOfSecs testElement5 = 2
 let test6 = noOfSecs doc = 13
+
