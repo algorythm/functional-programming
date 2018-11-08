@@ -53,3 +53,18 @@ and countChars = function
 let test7 = sizeOfDoc testElement1 = 30
 let test8 = sizeOfDoc testElement3 = 53
 let test9 = sizeOfDoc doc = 212
+
+// ##########
+// # Task 3 #
+// ##########
+
+let rec titlesInDoc = function
+    | title: Title, [] -> [title]
+    | title, head :: tail -> getTitle head @ titlesInDoc(title, tail)
+and getTitle = function
+    | Par _ -> []
+    | Sec(title, tail) -> titlesInDoc(title, tail)
+
+let titles = ["Background"; "Arithmetical Expressions"; "Boolean Expressions"; "Expressions"; "Basics"; "Switch statements"; "Repeat statements"; "Statements"; "Programs"; "The Programming Language"; "Frontend"; "Backend"; "Tasks"]
+let test10 = titlesInDoc doc = titles
+let test11 = (titlesInDoc doc).Length = titles.Length
