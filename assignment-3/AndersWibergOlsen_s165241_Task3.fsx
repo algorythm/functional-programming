@@ -66,5 +66,6 @@ and getTitle = function
     | Sec(title, tail) -> titlesInDoc(title, tail)
 
 let titles = ["Background"; "Arithmetical Expressions"; "Boolean Expressions"; "Expressions"; "Basics"; "Switch statements"; "Repeat statements"; "Statements"; "Programs"; "The Programming Language"; "Frontend"; "Backend"; "Tasks"]
+// It gets all titles, including the first (document title) one, which is incorrect. That means it finds 14 titles.
 let test10 = titlesInDoc doc = titles
 let test11 = (titlesInDoc doc).Length = titles.Length
