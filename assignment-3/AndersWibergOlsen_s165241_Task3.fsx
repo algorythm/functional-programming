@@ -59,7 +59,7 @@ let test9 = sizeOfDoc doc = 212
 // ##########
 
 let rec titlesInDoc = function
-    | title: Title, [] -> []
+    | _: Title, [] -> []
     | title, head :: tail -> getTitle head @ titlesInDoc(title, tail)
 and getTitle = function
     | Par _ -> []
@@ -81,4 +81,31 @@ type ToC    = (Prefix * Title) list;;
 
 // toc: Document -> ToC
 // let rec toc = function
-//     | elm : Document -> ""
+//         | title: Title, [] -> [[], title] : ToC
+//         | title, head :: tail -> gt head @ toc(title, tail)
+//     and gt = function
+//         | Par _ -> []
+//         | Sec(title, tail) -> toc(title, tail)
+
+
+let toc = 
+    let rec iterDoc (cnt: int) (pfx: Prefix) = function
+        | (_, []) -> []
+        | (title, head :: tail) -> elms cnt pfx head @ iterDoc (cnt+1) pfx (title, tail)
+    and elms cnt pfx = function
+        | Par _ -> []
+        | Sec (title, lst) -> (pfx@[cnt], title) :: iterDoc 1 (pfx@[cnt]) (title, lst)
+    function 
+    | (title, elements) -> ([], title) :: iterDoc 0 [] (title, elements)
+
+
+let test12 = toc doc
+
+// The method works, though the arguments and return type is 
+//   Title * Element list -> (int list * Title) list
+// I have tried a bunch of different things, but can't get it
+// to say 
+//   Document -> ToC
+//
+// Document is Title * Element list and ToC is (int list * Title) list
+// but, I can't figure out how to make it say the right thing.
