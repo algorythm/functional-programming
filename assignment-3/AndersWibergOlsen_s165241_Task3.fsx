@@ -1,3 +1,4 @@
+open System.Xml
 type Title    = string;;
 type Document = Title * Element list
 and Element   = Par of string | Sec of Document;;
@@ -38,3 +39,17 @@ let test4 = noOfSecs testElement4 = 1
 let test5 = noOfSecs testElement5 = 2
 let test6 = noOfSecs doc = 13
 
+// ##########
+// # Task 2 #
+// ##########
+
+let rec sizeOfDoc = function 
+    | title: Title, [] -> title.Length
+    | title, head :: tail -> countChars head + sizeOfDoc(title, tail)
+and countChars = function
+    | Par p -> p.Length
+    | Sec(title, tail) -> sizeOfDoc(title, tail)
+    
+let test7 = sizeOfDoc testElement1 = 30
+let test8 = sizeOfDoc testElement3 = 53
+let test9 = sizeOfDoc doc = 212
