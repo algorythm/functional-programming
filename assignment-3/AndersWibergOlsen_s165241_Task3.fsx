@@ -59,13 +59,26 @@ let test9 = sizeOfDoc doc = 212
 // ##########
 
 let rec titlesInDoc = function
-    | title: Title, [] -> [title]
+    | title: Title, [] -> []
     | title, head :: tail -> getTitle head @ titlesInDoc(title, tail)
 and getTitle = function
     | Par _ -> []
-    | Sec(title, tail) -> titlesInDoc(title, tail)
+    | Sec(title, tail) -> title :: titlesInDoc(title, tail)
 
-let titles = ["Background"; "Arithmetical Expressions"; "Boolean Expressions"; "Expressions"; "Basics"; "Switch statements"; "Repeat statements"; "Statements"; "Programs"; "The Programming Language"; "Frontend"; "Backend"; "Tasks"]
-// It gets all titles, including the first (document title) one, which is incorrect. That means it finds 14 titles.
+let titles = ["Background"; "The Programming Language"; "Expressions";
+   "Arithmetical Expressions"; "Boolean Expressions"; "Statements"; "Basics";
+   "Switch statements"; "Repeat statements"; "Programs"; "Tasks"; "Frontend";
+   "Backend"]
 let test10 = titlesInDoc doc = titles
 let test11 = (titlesInDoc doc).Length = titles.Length
+
+// ##########
+// # Task 4 #
+// ##########
+
+type Prefix = int list;;
+type ToC    = (Prefix * Title) list;;
+
+// toc: Document -> ToC
+// let rec toc = function
+//     | elm : Document -> ""
