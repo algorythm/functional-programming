@@ -98,8 +98,14 @@ let toc =
     function 
     | (title, elements) -> ([], title) :: iterDoc 0 [] (title, elements)
 
-
-let test12 = toc doc
+let output = [([], "Compiler project"); ([1], "Background");
+   ([2], "The Programming Language"); ([2; 1], "Expressions");
+   ([2; 1; 1], "Arithmetical Expressions"); ([2; 1; 2], "Boolean Expressions");
+   ([2; 2], "Statements"); ([2; 2; 1], "Basics");
+   ([2; 2; 2], "Switch statements"); ([2; 2; 3], "Repeat statements");
+   ([2; 3], "Programs"); ([3], "Tasks"); ([3; 1], "Frontend");
+   ([3; 2], "Backend")]
+let test12 = toc doc = output
 
 // The method works, though the arguments and return type is 
 //   Title * Element list -> (int list * Title) list
